@@ -1,0 +1,7 @@
+install.packages("magrittr")
+install.packages("tm")
+install.packages("word2vec")
+install.packages("XML")
+install.packages("qdap")
+install.packages("lumberjack")
+install.packages("readtext")
