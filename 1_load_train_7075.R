@@ -1,6 +1,6 @@
 # This script tries to use Word2Vec technique on Handelingen data
 # For Dialects of Discord on the party level
-#Milan van Lange, June 2021
+# Milan van Lange, June 2021
 
 library(magrittr)
 library(tm)
@@ -44,7 +44,7 @@ for (filename in files) {
   rbind(data, d2) -> data
 }
 
-#start_log(data, logger = simple$new(), label = NULL)
+# start_log(data, logger = simple$new(), label = NULL)
 
 # clean data
 data$sprkbrt <- tolower(data$sprkbrt)
@@ -52,14 +52,15 @@ data$sprkbrt <- removeWords(data$sprkbrt, stopwords("dutch"))
 data$sprkbrt <- removePunctuation(data$sprkbrt, preserve_intra_word_dashes = TRUE)
 data$sprkbrt <- str_squish(data$sprkbrt)
 
-#We performed some pre-processing steps to the parliamentary data sets to remove noise and improve the quality of our WEMs. These steps include the lowercasing of all the words in the texts and the removal of interpunction, white spaces and general Dutch stop words. To perform these pre-processing steps, we used the R package tm, which also includes a standard list of stop words for Dutch. 
+# We performed some pre-processing steps to the parliamentary data sets to remove noise and improve the quality of our WEMs. These steps include the lowercasing of all the words in the texts and the removal of interpunction, white spaces and general Dutch stop words. To perform these pre-processing steps, we used the R package tm, which also includes a standard list of stop words for Dutch. 
 
 #  use a copy of this when calculating values of spec. speaker or party
 dt <- data 
 
 # Create party and year specific datasets ---------------------------------
 # set wd
- setwd("Q:/Onderzoeksdata_Milan/Surfdrive_milan/Shared/Dialects_of_Discord/Raw_data/Plain_texts_party_spec_7075")
+path =""
+setwd(path)
 
 # CPN
 dt %>%
@@ -199,7 +200,7 @@ write(dt.19741975$sprkbrt, "corpus19741975dt.txt")
 #etc for all other years
 
 
-### data prepared! 
+# ## data prepared! 
 
 
 # Train word2vec model --------------------------------------------------
