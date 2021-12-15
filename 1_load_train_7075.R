@@ -4,14 +4,12 @@
 
 library(magrittr)
 library(tm)
-library(remotes)
 remotes::install_github("bnosac/word2vec")
 library(word2vec)
 library(XML)
 library(qdap)
 library(stringr)
 library(dplyr)
-library(lumberjack)
 library(readtext)
 library(here)
 
@@ -205,7 +203,7 @@ score_prol.cda <- as.data.frame(word2vec_similarity(vecs_nns_nuc.100.cda, comb.p
 score_nonprol.cda <- as.data.frame(word2vec_similarity(vecs_nns_nuc.100.cda, comb.nv.cda))
 
 # Plotting ----------------------------------------------------------------
-#setwd("/output")
+
 setwd(here("output"))
 
 pdf('plot_7075_parties.pdf', width=8, height=8)
@@ -215,20 +213,10 @@ type='p', pch=16, col=c("blue"),
 main="
      Party-specific nuclear weapon vocabularies plotted by their
      similarity to proliferation words(x) and non-proliferation words(y) 1970-1975")
-
-# plot also the other parties!
 points(score_prol.cpn$V1, score_nonprol.cpn$V1, pch=16, col=c("red"))
 points(score_prol.vvd$V1, score_nonprol.vvd$V1, pch=16, col=c("black"))
 #points(score_prol.cda$V1, score_nonprol.cda$V1, pch=16, col=c("green"))
-
-# add line
 abline(a=0,b=1)
-#abline(h=(mean(cpn_score_nonprol$similarity)), col = "red")
-#abline(v=(mean(cpn_score_prol$similarity)), col = "red")
-#       abline(h=(mean(cpn_score_nonprol$similarity)), col = "blue")
-#       abline(v=(mean(cpn_score_prol$similarity)), col = "blue")
-
-# add legend
 legend('bottomright', legend=c("CPN", "VVD", "PvdA"),
        col=c("red", "black", "blue"), lwd=11, cex=0.8)
 
