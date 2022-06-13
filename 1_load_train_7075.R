@@ -1,10 +1,12 @@
-# This script tries to use Word2Vec technique on Handelingen data
-# For Dialects of Discord on the party level
-# Milan van Lange, June 2021
+# This script applies the Word2Vec technique on Handelingen data
+# For Dialects of Discord, JDH
+# Ralf Futselaar and Milan van Lange, 2022
+install.packages("readtext")
+install.packages('RCurl') # Only first time
 
 library(magrittr)
 library(tm)
-remotes::install_github("bnosac/word2vec")
+#remotes::install_github("bnosac/word2vec")
 library(word2vec)
 library(XML)
 library(qdap)
@@ -12,14 +14,17 @@ library(stringr)
 library(dplyr)
 library(readtext)
 library(readr)
-library(here)
+library(RCurl)
 
 # Load the text data
-# Pre-processed .txt files are used (without interpunction, stowords removed, all letters to lower case, etc.)
+# Pre-processed .csv files are used (without interpunction, stowords removed, all letters to lower case, etc.)
 
-githubURL <- ("https://github.com/MilanvanL/jdh001-9HcfToh7EYm8/raw/main/data/stuff.RDS")
-download.file(githubURL, "stuff.RDS")
-files2 <- readRDS("stuff.RDS")
+# Download parliamentary texts (.csv) from github
+files <- getURL("https://raw.githubusercontent.com/jdh-observer/jdh001-9HcfToh7EYm8/main/parl_texts_7075.csv")
+
+# Read parliamentary texts into RStudio Environment as data.frame
+files2 <- read.csv(text = files, encoding="UTF-8")
+saveRDS(files, "parl_texts_7075.rds")
 
 # Train word2vec model --------------------------------------------------
 
@@ -207,8 +212,6 @@ score_nonprol.cda <- as.data.frame(word2vec_similarity(vecs_nns_nuc.100.cda, com
 
 setwd(here("output"))
 
-pdf('plot_7075_parties.pdf', width=8, height=8)
-
 plot(score_prol.pvda$V1, score_nonprol.pvda$V1,ylim=c(0, 1.0), xlim=c(0,1.0), xlab = "Proliferation", ylab = 'Non-proliferation',
 type='p', pch=16, col=c("blue"),
 main="
@@ -220,10 +223,6 @@ points(score_prol.vvd$V1, score_nonprol.vvd$V1, pch=16, col=c("black"))
 abline(a=0,b=1)
 legend('bottomright', legend=c("CPN", "VVD", "PvdA"),
        col=c("red", "black", "blue"), lwd=11, cex=0.8)
-
-#turn off
-dev.off()
-
 
 # The End 
 
