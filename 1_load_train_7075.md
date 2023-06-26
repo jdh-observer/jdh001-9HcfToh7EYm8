@@ -474,7 +474,7 @@ This method, although admittedly cumbersome, has considerable advantages. The 10
 # party.
 plot(score_prol.pvda$V1, score_nonprol.pvda$V1, ylim = c(0, 1), xlim = c(0, 1), xlab = "Proliferation",
     ylab = "Non-proliferation", type = "p", pch = 16, col = c("blue"), main = "Party-specific nuclear weapon vocabularies plotted by 
-their similarity to proliferation words(x) and non-proliferation words(y) 1970-1975")
+their similarity to \n proliferation words(x) and non-proliferation words(y) 1970-1975")
 
 
 
